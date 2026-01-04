@@ -1,0 +1,12 @@
+region              = "ap-northeast-2"
+ami_id              = "ami-0c8b778b47e354873" # Debian 13 (HVM), SSD Volume Type, x86
+vpc_id              = "vpc-0example123456789"
+subnet_id           = "subnet-0example123456789"
+security_group_ids  = ["sg-0example123456789"]
+resource_prefix     = "k8s-hardway"
+key_name            = "my-ec2-keypair" # Optional; set to null or remove to disable
+associate_public_ip = true
+default_tags = {
+  Environment = "lab"
+  Project     = "kubernetes-the-hard-way"
+}
