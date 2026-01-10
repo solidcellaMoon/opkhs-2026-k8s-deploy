@@ -54,18 +54,18 @@ locals {
     systemctl stop apparmor
     systemctl disable --now apparmor || true
 
-    # 3) create labadmin user
+    # 3) create labadmin user & change root password
     useradd -m -s /bin/bash labadmin
-    echo "labadmin:qwer123!" | chpasswd
+    usermod -aG sudo labadmin
+    echo "labadmin:qwe123" | chpasswd
+    echo "root:qwe123" | chpasswd
     
     # sshd 설정: 패스워드 로그인 허용
     mkdir -p /etc/ssh/sshd_config.d
     cat <<'EOF' >/etc/ssh/sshd_config.d/99-enable-password.conf
     PasswordAuthentication yes
-    KbdInteractiveAuthentication no
-    ChallengeResponseAuthentication no
     UsePAM yes
-    PermitRootLogin no
+    PermitRootLogin yes
     EOF
     systemctl restart ssh
 
