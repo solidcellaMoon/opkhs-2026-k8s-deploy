@@ -3,12 +3,12 @@
 
 - EC2 인스턴스는 모두 `t3.small (2 vCPU, 2 GiB)` 로 생성한다.
 
-| NAME | Description | CPU | RAM | NIC1 | NIC2 | HOSTNAME |
+| NAME | Description | CPU | RAM | Private IP | HOSTNAME |
 | --- | --- | --- | --- | --- | --- | --- |
-| jumpbox | Administration host | 2 | 1536 MB | 10.0.2.15 | **192.168.10.10** | **jumpbox** |
-| server | Kubernetes server | 2 | 2GB | 10.0.2.15 | **192.168.10.100** | server.kubernetes.local **server** |
-| node-0 | Kubernetes worker  | 2 | 2GB | 10.0.2.15 | **192.168.10.101** | node-0.kubernetes.local **node-0** |
-| node-1 | Kubernetes worker  | 2 | 2GB | 10.0.2.15 | **192.168.10.102** | node-1.kubernetes.local **node-1** |
+| jumpbox | Administration host | 2 | 2GiB | **172.31.11.186** | **jumpbox** |
+| server | Kubernetes server | 2 | 2GiB | **172.31.5.196** | server.kubernetes.local **server** |
+| node-0 | Kubernetes worker  | 2 | 2GiB | **172.31.8.112** | node-0.kubernetes.local **node-0** |
+| node-1 | Kubernetes worker  | 2 | 2GiB | **172.31.15.209** | node-1.kubernetes.local **node-1** |
 
 ```bash
 Apply complete! Resources: 0 added, 4 changed, 0 destroyed.

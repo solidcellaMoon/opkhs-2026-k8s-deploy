@@ -46,7 +46,7 @@ locals {
 
     # 1) install packages
     apt-get update
-    apt-get install -y --no-install-recommends ca-certificates curl jq vim git tree openssh-server
+    apt-get install -y --no-install-recommends ca-certificates curl jq vim git tree openssh-server yq
 
     # 2) Swap off & Disable AppArmor
     swapoff -a
