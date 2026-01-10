@@ -43,17 +43,33 @@ locals {
     set -euo pipefail
 
     # initial settings
-    # 1) Swap off
+
+    # 1) install packages
+    apt-get update
+    apt-get install -y --no-install-recommends ca-certificates curl jq vim git tree openssh-server
+
+    # 2) Swap off & Disable AppArmor
     swapoff -a
     sed -i '/swap/s/^/#/' /etc/fstab
-    
-    # 2) Disable AppArmor
     systemctl stop apparmor
-    systemctl disable apparmor >/dev/null 2>&1
+    systemctl disable --now apparmor || true
 
-    # install amazon-ssm-agent
-    apt-get update
-    apt-get install -y --no-install-recommends ca-certificates curl jq vim git tree
+    # 3) create labadmin user
+    useradd -m -s /bin/bash labadmin
+    echo "labadmin:qwer123!" | chpasswd
+    
+    # sshd 설정: 패스워드 로그인 허용
+    mkdir -p /etc/ssh/sshd_config.d
+    cat <<'EOF' >/etc/ssh/sshd_config.d/99-enable-password.conf
+    PasswordAuthentication yes
+    KbdInteractiveAuthentication no
+    ChallengeResponseAuthentication no
+    UsePAM yes
+    PermitRootLogin no
+    EOF
+    systemctl restart ssh
+
+    # 4) install amazon-ssm-agent
     curl -fsSL "https://s3.${var.region}.amazonaws.com/amazon-ssm-${var.region}/latest/debian_amd64/amazon-ssm-agent.deb" -o /tmp/amazon-ssm-agent.deb
     dpkg -i /tmp/amazon-ssm-agent.deb
     systemctl enable --now amazon-ssm-agent
