@@ -1,4 +1,4 @@
-# 5. etcd 구동
+# etcd 구동
 
 ## Prerequisites
 - hostname 변경 : controller -> server

@@ -1,4 +1,4 @@
-# 10. Smoke Test
+# Smoke Test
 
 ## Data Encryption
 ```bash

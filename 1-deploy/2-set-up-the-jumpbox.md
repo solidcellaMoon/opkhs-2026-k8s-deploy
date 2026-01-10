@@ -1,4 +1,4 @@
-# 1. jumpbox 서버에서 k8s 구성을 위한 초기 설정 진행
+# jumpbox 서버에서 k8s 구성을 위한 초기 설정 진행
 
 ```bash
 # Sync GitHub Repository

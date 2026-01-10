@@ -1,4 +1,4 @@
-# 7. k8s worker node 구동
+# k8s worker node 구동
 
 ## jumpbox에서 사전 준비
 ```bash

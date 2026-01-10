@@ -1,4 +1,4 @@
-# 3. k8s 노드 용도의 kubeconfig 초기 설정 진행
+# k8s 노드 용도의 kubeconfig 초기 설정 진행
 
 ## node-0, node-1 용도의 kubeconfig 파일 생성
 

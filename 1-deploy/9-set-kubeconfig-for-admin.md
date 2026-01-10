@@ -1,4 +1,4 @@
-# 8. admin 및 원격 접속을 위한 kubeconfig 파일 구성
+# admin 및 원격 접속을 위한 kubeconfig 파일 구성
 - kubectl을 k8s 노드 서버가 아닌, 다른 원격지에서 수행할 수 있도록 kubeconfig 파일을 구성한다.
 - 이번 실습에서는 jumpbox 서버에서 구성한다.
 

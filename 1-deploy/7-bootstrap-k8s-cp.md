@@ -1,4 +1,4 @@
-# 6. k8s control plane 구동
+# k8s control plane 구동
 
 | 항목               | 네트워크 대역 or IP     |
 | ---------------- | ----------------- |

@@ -1,4 +1,4 @@
-# 4. k8s 암호화 설정
+# k8s 암호화 설정
 
 ```bash
 # Generate an encryption key
