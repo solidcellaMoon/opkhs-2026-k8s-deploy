@@ -10,9 +10,9 @@
 | node-1 | Kubernetes worker  | 2 | 2GiB | **172.31.15.209** | node-1.kubernetes.local **node-1** |
 
 
-## 1. terraform으로 EC2 배포
+## terraform으로 EC2 배포
 
-아래 커맨드로 EC2 4대를 배포한 뒤, aws 콘솔 상에서 아래 내용을 반드시 진행한다.
+terraform으로 EC2 4대를 배포한 뒤, aws 콘솔 상에서 아래의 네트워크 설정 변경을 반드시 진행한다.
 - ec2 우클릭 -> "네트워킹" -> "네트워크 소스 / 대상 확인 변경" -> "소스 / 대상 확인" **중지** 처리
   - 추후 k8s 구성 뒤, 노드 서버간 pod 대역 통신을 확인하기 위해서임 (terraform 코드는 추후 수정할 예정)
 
@@ -81,7 +81,7 @@ instance_public_ips = {
 }
 ```
 
-## 2. 서버 내 추가적으로 필요한 구성 진행
+## 서버 내 추가적으로 필요한 구성 진행
 - 모든 EC2의 `/etc/hosts` 파일 수정
 - 모든 EC2의 hostname을 `hostnamectl`로 사전 변경
 
@@ -155,7 +155,7 @@ root@ip-172-31-15-209:~# hostnamectl set-hostname node-1
 root@ip-172-31-15-209:~# exit
 ```
 
-## 3. EC2 시스템 설정 최종 확인
+## EC2 시스템 설정 최종 확인
 
 ```bash
 $ sudo su -
