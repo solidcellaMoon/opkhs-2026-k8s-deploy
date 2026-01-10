@@ -62,7 +62,7 @@ Apply complete! Resources: 0 added, 4 changed, 0 destroyed.
 Outputs:
 
 instance_ids = {
-  "jumpbox" = "i-{jumphost_id}"
+  "jumpbox" = "i-{jumpbox_id}"
   "node-0" = "i-{node-0_id}"
   "node-1" = "i-{node-1_id}"
   "server" = "i-{server_id}"
