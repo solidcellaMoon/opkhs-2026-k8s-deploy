@@ -82,7 +82,7 @@ instance_public_ips = {
 
 모든 EC2의 `/etc/hosts` 파일을 수정한다.
 ```bash
-# jumphost 용도의 EC2 접속 후, /etc/hosts에 아래처럼 추가
+# jumpbox 용도의 EC2 접속 후, /etc/hosts에 아래처럼 추가
 oot@ip-172-31-11-186:~# cat /etc/hosts
 127.0.0.1       localhost
 ::1             localhost ip6-localhost ip6-loopback
@@ -133,8 +133,8 @@ done
 
 모든 EC2의 hostname을 `hostnamectl`로 사전 변경한다.
 ```bash
-# jumphost 용도의 EC2 접속 후, hostname 변경
-root@ip-172-31-11-186:~# hostnamectl set-hostname jumphost
+# jumpbox 용도의 EC2 접속 후, hostname 변경
+root@ip-172-31-11-186:~# hostnamectl set-hostname jumpbox
 root@ip-172-31-11-186:~# exit
 
 # server 용도의 EC2 접속 후, hostname 변경
@@ -150,4 +150,152 @@ root@ip-172-31-15-209:~# hostnamectl set-hostname node-1
 root@ip-172-31-15-209:~# exit
 ```
 
-## 
+## 3. EC2 시스템 설정 최종 확인
+
+```bash
+$ sudo su -
+root@jumpbox:~#
+
+root@jumpbox:~# whoami
+root
+
+root@jumpbox:~# pwd
+/root
+
+root@jumpbox:~# cat /etc/os-release
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
+NAME="Debian GNU/Linux"
+VERSION_ID="13"
+VERSION="13 (trixie)"
+VERSION_CODENAME=trixie
+DEBIAN_VERSION_FULL=13.1
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+root@jumpbox:~# aa-status
+apparmor module is loaded.
+106 profiles are loaded.
+7 profiles are in enforce mode.
+   /usr/bin/man
+   lsb_release
+   man_filter
+   man_groff
+   nvidia_modprobe
+   nvidia_modprobe//kmod
+   tcpdump
+23 profiles are in complain mode.
+   Xorg
+   plasmashell
+   plasmashell//QtWebEngineProcess
+   sbuild
+   sbuild-abort
+   sbuild-adduser
+   sbuild-apt
+   sbuild-checkpackages
+   sbuild-clean
+   sbuild-createchroot
+   sbuild-destroychroot
+   sbuild-distupgrade
+   sbuild-hold
+   sbuild-shell
+   sbuild-unhold
+   sbuild-update
+   sbuild-upgrade
+   transmission-cli
+   transmission-daemon
+   transmission-gtk
+   transmission-qt
+   unix-chkpwd
+   unprivileged_userns
+0 profiles are in prompt mode.
+0 profiles are in kill mode.
+76 profiles are in unconfined mode.
+   1password
+   Discord
+   MongoDB Compass
+   QtWebEngineProcess
+   balena-etcher
+   brave
+   buildah
+   busybox
+   cam
+   ch-checkns
+   ch-run
+   chrome
+   chromium
+   crun
+   devhelp
+   element-desktop
+   epiphany
+   evolution
+   firefox
+   flatpak
+   foliate
+   geary
+   github-desktop
+   goldendict
+   ipa_verify
+   kchmviewer
+   keybase
+   lc-compliance
+   libcamerify
+   linux-sandbox
+   loupe
+   lxc-attach
+   lxc-create
+   lxc-destroy
+   lxc-execute
+   lxc-stop
+   lxc-unshare
+   lxc-usernsexec
+   mmdebstrap
+   msedge
+   nautilus
+   notepadqq
+   obsidian
+   opam
+   opera
+   pageedit
+   polypane
+   privacybrowser
+   qcam
+   qmapshack
+   qutebrowser
+   rootlesskit
+   rpm
+   rssguard
+   runc
+   scide
+   signal-desktop
+   slack
+   slirp4netns
+   steam
+   stress-ng
+   surfshark
+   systemd-coredump
+   toybox
+   trinity
+   tup
+   tuxedo-control-center
+   userbindmount
+   uwsgi-core
+   vdens
+   virtiofsd
+   vivaldi-bin
+   vpnns
+   vscode
+   wike
+   wpcom
+0 processes have profiles defined.
+0 processes are in enforce mode.
+0 processes are in complain mode.
+0 processes are in prompt mode.
+0 processes are in kill mode.
+0 processes are unconfined but have a profile defined.
+0 processes are in mixed mode.
+
+root@jumpbox:~# systemctl is-active apparmor
+inactive
+```
