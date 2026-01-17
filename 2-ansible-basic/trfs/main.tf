@@ -23,24 +23,28 @@ locals {
       hostname        = "server"
       ami_id          = var.ubuntu_ami_id
       root_volume_gb  = 30
+      instance_type   = "t3.medium"
     }
     tnode1 = {
       description     = "Ansible managed node"
       hostname        = "tnode1"
       ami_id          = var.ubuntu_ami_id
       root_volume_gb  = 30
+      instance_type   = var.instance_type
     }
     tnode2 = {
       description     = "Ansible managed node"
       hostname        = "tnode2"
       ami_id          = var.ubuntu_ami_id
       root_volume_gb  = 30
+      instance_type   = var.instance_type
     }
     tnode3 = {
       description     = "Ansible managed node"
       hostname        = "tnode3"
       ami_id          = var.rocky_ami_id
       root_volume_gb  = 60
+      instance_type   = var.instance_type
     }
   }
 
@@ -126,7 +130,7 @@ resource "aws_instance" "nodes" {
   for_each = local.instances
 
   ami           = each.value.ami_id
-  instance_type = var.instance_type
+  instance_type = each.value.instance_type
 
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.security_group_ids
