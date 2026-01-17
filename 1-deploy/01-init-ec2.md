@@ -88,7 +88,7 @@ instance_public_ips = {
 모든 EC2의 `/etc/hosts` 파일을 수정한다.
 ```bash
 # jumpbox 용도의 EC2 접속 후, /etc/hosts에 아래처럼 추가
-oot@ip-172-31-11-186:~# cat /etc/hosts
+root@ip-172-31-11-186:~# cat /etc/hosts
 127.0.0.1       localhost
 ::1             localhost ip6-localhost ip6-loopback
 ff02::1         ip6-allnodes
