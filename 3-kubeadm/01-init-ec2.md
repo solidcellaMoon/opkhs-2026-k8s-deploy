@@ -1,8 +1,10 @@
 # 실습용 EC2 환경 초기화
 
-실습용 EC2 인스턴스는 모두 `t3.medium (2 vCPU, 2 GiB)` 로 생성한다.
+실습용 EC2 인스턴스 구성은 아래와 같다.
 - region: ap-northeast-2
 - Rocky Linux 9: ami-06b18c6a9a323f75f
+- k8s-ctr: `t3.xlarge (4 vCPU, 16 GiB)`
+- k8s-w1, k8s-w2: `t3.medium (2 vCPU, 4 GiB)`
 
 terraform 커맨드 내용은 생략하고, 구성된 output은 아래와 같은 형식이다.
 
