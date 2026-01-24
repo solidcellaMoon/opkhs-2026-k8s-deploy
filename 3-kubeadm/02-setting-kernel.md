@@ -4,9 +4,11 @@
 
 ## Swap Off
 
-- 실습 환경에서는 ec2 user-data를 통해 미리 swapoff를 해주었기에 커맨드 자체는 생략.
-- 왜 swapoff를 해야하는가?: 메모리 관리 영역을 오직 k8s에게만 맡기기 위해. (swap 켜면 OS영역과 겹치게 됨)
-
+- 실습 환경에서는 EC2 user-data에서 미리 swapoff를 처리했기 때문에 커맨드 자체는 생략.
+- 왜 swapoff를 해야하는가?
+  - k8s는 기본적으로 swap이 켜진 노드를 거부함.
+  - kubelet의 스케줄링/eviction 정책은 실제 메모리를 기준으로 설계돼서, swap이 있다면 리소스 계산이 왜곡될 수 있다.
+- 특히 메모리 부족 상황에서 OS가 swap을 쓰기 시작하면, 파드의 상태가 애매해지고(갑작스러운 지연/타임아웃) 원인 추적이 어려워진다.
 
 ## 커널 파라미터 설정
 
@@ -18,7 +20,13 @@
     - 기존 파일을 수정하면, Upper Layer에 복사 후 수정
     - 컨테이너가 삭제되면, Upper Layer만 사라지고 Lower Layer는 그대로 유지
 - `br_netfilter`: 브릿지 네트워크 트래픽이 iptables를 거치도록 함.
+  - CNI가 구성한 bridge를 통과하는 패킷이 iptables 규칙을 통과해야 네트워크 정책, 서비스 라우팅, kube-proxy 규칙이 정상적으로 동작함.
+  - 이 모듈이 없으면 k8s 내부 통신이 비정상적으로 보인다.
 
+sysctl 항목 설명
+- `net.bridge.bridge-nf-call-iptables`: 브릿지로 들어온 IPv4 트래픽을 iptables로 전달.
+- `net.bridge.bridge-nf-call-ip6tables`: 브릿지로 들어온 IPv6 트래픽을 ip6tables로 전달.
+- `net.ipv4.ip_forward`: 노드가 라우팅 역할을 할 수 있게 하여 Pod 간, Pod-서비스 간 패킷 전달을 활성화.
 
 ```bash
 # 커널 모듈 확인
@@ -115,4 +123,3 @@ net.bridge.bridge-nf-call-iptables = 1
 [root@k8s-ctr ~]# sysctl net.ipv4.ip_forward
 net.ipv4.ip_forward = 1
 ```
-

@@ -2,7 +2,14 @@
 
 이하 내용은 Control Plane, Worker Node 모두 진행해야 한다.
 
+실습에서는 kubelet이 사용할 CRI 구현체로 containerd를 사용한다.
+- k8s v1.24부터는 Docker shim이 제거되었기 때문에, Docker 데몬이 아니라 CRI를 직접 제공하는 런타임(containerd 또는 CRI-O)을 사용해야 함.
+
 ## 패키지 및 바이너리 설치
+
+containerd는 쿠버네티스 버전과의 호환성을 고려해 버전을 고정하는 편이 안전하다.
+- 실습에서는 명시적으로 `containerd.io-2.1.5-1.el9`를 설치함.
+
 ```bash
 [root@k8s-ctr ~]# dnf --version
 4.14.0
@@ -255,6 +262,7 @@ WantedBy=multi-user.target
 ```
 
 ## containerd 기본 세팅
+
 ```bash
 # 기본 설정 생성 및 SystemdCgroup 활성화 (매우 중요)
 [root@k8s-ctr ~]# containerd config default | tee /etc/containerd/config.toml
