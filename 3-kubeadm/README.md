@@ -1,6 +1,4 @@
-# kubeadm k8s 스터디 목차
-
-## 페이지별 목차
+# Index
 
 1. [실습용 EC2 환경 초기화](01-init-ec2.md)
 2. [노드 용도 서버에서 필요한 커널 세팅 진행](02-setting-kernel.md)
