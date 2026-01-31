@@ -1,8 +1,6 @@
-# kubespray 설치 요약
+# kubespray로 진행되는 k8s 설치 상세
 
 - 로그 원문: [kubespray_install.log](./kubespray_install.log)
-
-## 실행 요약
 - 실행 시각: 2026-01-31 14:57:10 ~ 15:04:15 UTC
 - 대상: k8s-ctr (단일 노드)
 - 결과: ok=611, changed=139, failed=0 (ignored=2)
@@ -19,7 +17,7 @@
 
 ## 프로비저닝 순서 (PLAY 기준)
 
-```
+
 1. Check Ansible version
 2. Inventory setup and validation
 3. Install bastion ssh config (skip)
@@ -36,7 +34,7 @@
 14. Install Kubernetes apps
 15. Apply resolv.conf changes now that cluster DNS is up
 16. Play recap
-```
+
 
 ## 각 단계에서 수행된 상세 작업
 
@@ -161,8 +159,6 @@
 ### 스킵된 단계
 - bastion ssh config
 - Calico Route Reflector (해당 호스트 없음)
-
----
 
 ## 로그에서 확인된 경고/특이사항
 - kubeadm init 경고: clusterDNS 값이 권장(10.233.0.10)과 다름 (10.233.0.3 사용)
