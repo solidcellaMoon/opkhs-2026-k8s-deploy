@@ -25,7 +25,7 @@ ip_addr-1: k8s 설치 전 / ip_addr-2: k8s 설치 후
 ###  설치 후 (ip_addr-2)
 - 기존 `lo`, `ens5`는 유지 (IP/MTU 동일)
 - 신규 인터페이스 추가:
-  - `flannel.1`: 플란넬 오버레이 VXLAN 인터페이스
+  - `flannel.1`: 플라넬 오버레이 VXLAN 인터페이스
     - IPv4: `10.233.64.0/32`
     - MTU: `8951` (오버레이 헤더 반영으로 감소)
   - `cni0`: CNI 브리지
