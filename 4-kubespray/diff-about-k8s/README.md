@@ -69,10 +69,10 @@ ss-1: k8s 설치 전 / ss-2: k8s 설치 후
 
 df-1: k8s 설치 전 / df-2: k8s 설치 후
 
-- k8s 설치 후, 루트 파티션 사용량이 **3.1G → 5.5G(+2.4G)**로 증가하며 사용률도 **6% → 10%**로 상승함.
+- k8s 설치 후, 루트 파티션 사용량이 `3.1G → 5.5G(+2.4G)`로 증가하며 사용률도 6% → 10%로 상승함.
 - `containerd`/`kubelet` 구동으로 인해 **overlay, shm, tmpfs 기반 마운트가 다수 추가**됨.
 - `/boot`, `/boot/efi`, `devtmpfs`, `tmpfs(/dev/shm)` 등 기본 시스템 파티션은 **변화 없음**.
-- **루트 파티션 증가(약 2.4G)**는 kubelet/컨테이너 런타임 설치, 이미지 다운로드, 기본 애드온 실행으로 인한 디스크 사용 증가로 해석됨.
+- `루트 파티션 증가(약 2.4G)`는 kubelet/컨테이너 런타임 설치, 이미지 다운로드, 기본 애드온 실행으로 인한 디스크 사용 증가로 해석됨.
 - **overlay 마운트 다수 생성**은 컨테이너 런타임(containerd)이 파드별 rootfs를 overlay로 구성하고 있음을 의미함.
 - **`/var/lib/kubelet/pods/*/volumes/...` tmpfs 마운트**는 쿠버네티스가 서비스어카운트 토큰 및 API 접근 정보를 projected volume으로 제공하는 정상 동작 현상.
 
@@ -91,7 +91,7 @@ df-1: k8s 설치 전 / df-2: k8s 설치 후
 | `containerd shm` | 없음 | 다수 추가 | 컨테이너 IPC 공유 메모리 |
 | `kubelet projected` | 없음 | 다수 추가 | Pod 서비스어카운트 토큰/Config 저장 |
 
-### overlay / shm 보완 설명
+### overlay / shm
 - df-2 기준 `overlay` 마운트 **22개** 확인: 모두 `overlay` 타입이며 `/run/containerd/io.containerd.runtime.v2.task/k8s.io/<id>/rootfs` 형태로 생성됨.
 - df-2 기준 `shm` 마운트 **11개** 확인: 모두 `tmpfs 64M`로 `/run/containerd/io.containerd.grpc.v1.cri/sandboxes/<id>/shm` 형태로 생성됨.
 - 공통 특성: `overlay`는 루트 파티션(`/`)과 동일한 용량(59G)·사용량(5.5G)을 보여 컨테이너가 호스트 디스크를 오버레이로 공유함을 나타내고, `shm`은 컨테이너 IPC를 위한 공유 메모리로 0% 사용 상태가 다수.
