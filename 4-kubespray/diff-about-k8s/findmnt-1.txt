@@ -1,0 +1,28 @@
+TARGET                                          SOURCE         FSTYPE     OPTIONS
+/                                               /dev/nvme0n1p4 xfs        rw,relatime,seclabel,attr2,inode64,logbufs=8,logbsize=32k,noquota
+├─/boot                                         /dev/nvme0n1p3 xfs        rw,relatime,seclabel,attr2,inode64,logbufs=8,logbsize=32k,noquota
+│ └─/boot/efi                                   /dev/nvme0n1p2 vfat       rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=winnt,errors=remount-ro
+├─/dev                                          devtmpfs       devtmpfs   rw,nosuid,seclabel,size=7907680k,nr_inodes=1976920,mode=755,inode64
+│ ├─/dev/mqueue                                 mqueue         mqueue     rw,nosuid,nodev,noexec,relatime,seclabel
+│ ├─/dev/hugepages                              hugetlbfs      hugetlbfs  rw,nosuid,nodev,relatime,seclabel,pagesize=2M
+│ ├─/dev/shm                                    tmpfs          tmpfs      rw,nosuid,nodev,seclabel,inode64
+│ └─/dev/pts                                    devpts         devpts     rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000
+├─/sys                                          sysfs          sysfs      rw,nosuid,nodev,noexec,relatime,seclabel
+│ ├─/sys/fs/selinux                             selinuxfs      selinuxfs  rw,nosuid,noexec,relatime
+│ ├─/sys/kernel/tracing                         tracefs        tracefs    rw,nosuid,nodev,noexec,relatime,seclabel
+│ ├─/sys/kernel/debug                           debugfs        debugfs    rw,nosuid,nodev,noexec,relatime,seclabel
+│ ├─/sys/fs/fuse/connections                    fusectl        fusectl    rw,nosuid,nodev,noexec,relatime
+│ ├─/sys/kernel/security                        securityfs     securityfs rw,nosuid,nodev,noexec,relatime
+│ ├─/sys/fs/cgroup                              cgroup2        cgroup2    rw,nosuid,nodev,noexec,relatime,seclabel,nsdelegate,memory_recursiveprot
+│ ├─/sys/fs/pstore                              pstore         pstore     rw,nosuid,nodev,noexec,relatime,seclabel
+│ ├─/sys/firmware/efi/efivars                   efivarfs       efivarfs   rw,nosuid,nodev,noexec,relatime
+│ ├─/sys/fs/bpf                                 bpf            bpf        rw,nosuid,nodev,noexec,relatime,mode=700
+│ └─/sys/kernel/config                          configfs       configfs   rw,nosuid,nodev,noexec,relatime
+├─/proc                                         proc           proc       rw,nosuid,nodev,noexec,relatime
+│ └─/proc/sys/fs/binfmt_misc                    systemd-1      autofs     rw,relatime,fd=35,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=3900
+├─/run                                          tmpfs          tmpfs      rw,nosuid,nodev,seclabel,size=3179572k,nr_inodes=819200,mode=755,inode64
+│ ├─/run/user/1000                              tmpfs          tmpfs      rw,nosuid,nodev,relatime,seclabel,size=1589784k,nr_inodes=397446,mode=700,uid=1000,gid=1000,inode64
+│ ├─/run/credentials/systemd-journald.service   tmpfs          tmpfs      ro,nosuid,nodev,noexec,relatime,nosymfollow,seclabel,size=1024k,nr_inodes=1024,mode=700,inode64,noswap
+│ ├─/run/credentials/serial-getty@ttyS0.service tmpfs          tmpfs      ro,nosuid,nodev,noexec,relatime,nosymfollow,seclabel,size=1024k,nr_inodes=1024,mode=700,inode64,noswap
+│ └─/run/credentials/getty@tty1.service         tmpfs          tmpfs      ro,nosuid,nodev,noexec,relatime,nosymfollow,seclabel,size=1024k,nr_inodes=1024,mode=700,inode64,noswap
+└─/var/lib/nfs/rpc_pipefs                       rpc_pipefs     rpc_pipefs rw,relatime

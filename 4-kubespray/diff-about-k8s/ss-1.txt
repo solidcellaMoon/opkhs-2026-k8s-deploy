@@ -1,0 +1,4 @@
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess                         
+LISTEN 0      128          0.0.0.0:22        0.0.0.0:*    users:(("sshd",pid=998,fd=7))  
+LISTEN 0      128             [::]:22           [::]:*    users:(("sshd",pid=998,fd=8))  
+LISTEN 0      4096               *:9090            *:*    users:(("systemd",pid=1,fd=75))

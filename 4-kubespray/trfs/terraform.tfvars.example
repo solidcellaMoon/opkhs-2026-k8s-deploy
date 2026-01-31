@@ -1,0 +1,13 @@
+region              = "ap-northeast-2"
+ubuntu_ami_id       = "ami-0a71e3eb8b23101ed"
+rocky_ami_id        = "ami-06b18c6a9a323f75f"
+vpc_id              = "vpc-0example123456789"
+subnet_id           = "subnet-0example123456789"
+security_group_ids  = ["sg-0example123456789"]
+resource_prefix     = "kubespray"
+key_name            = "my-ec2-keypair" # Optional; set to null or remove to disable
+associate_public_ip = true
+default_tags = {
+  Environment = "lab"
+  Project     = "kubespray"
+}
