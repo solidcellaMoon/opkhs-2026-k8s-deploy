@@ -17,15 +17,27 @@ data "aws_vpc" "selected" {
 }
 
 locals {
-  instances = {
-    k8s_ctr = {
-      description     = "Kubernetes control-plane node"
-      hostname        = "k8s-ctr"
-      ami_id          = var.rocky_ami_id
-      root_volume_gb  = 60
-      instance_type   = "t3.xlarge"
+  instances = merge(
+    {
+      admin_lb = {
+        description    = "Admin load balancer"
+        hostname       = "admin-lb"
+        ami_id         = var.rocky_ami_id
+        root_volume_gb = 60
+        instance_type  = "t3.medium"
+      }
+    },
+    {
+      for idx in range(1, 6) :
+      "k8s_node${idx}" => {
+        description    = "Kubernetes node ${idx}"
+        hostname       = "k8s-node${idx}"
+        ami_id         = var.rocky_ami_id
+        root_volume_gb = 60
+        instance_type  = "t3.medium"
+      }
     }
-  }
+  )
 
   bootstrap_user_data = <<-EOT
     #!/bin/bash
@@ -51,16 +63,16 @@ locals {
         ;;
     esac
 
-    hostnamectl set-hostname k8s-ctr
+    hostnamectl set-hostname __HOSTNAME__
 
-    # register this instance private IP as k8s-ctr in /etc/hosts
+    # register this instance private IP as its hostname in /etc/hosts
     token="$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
       -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")"
     private_ip="$(curl -sH "X-aws-ec2-metadata-token: $token" \
       http://169.254.169.254/latest/meta-data/local-ipv4)"
 
     if [ -n "$private_ip" ]; then
-      echo "$${private_ip} k8s-ctr" >> /etc/hosts
+      echo "$${private_ip} __HOSTNAME__" >> /etc/hosts
     fi
 
     # Swap off & disable AppArmor where applicable
@@ -149,7 +161,7 @@ resource "aws_instance" "nodes" {
   }
 
   monitoring = true
-  user_data = local.bootstrap_user_data
+  user_data = replace(local.bootstrap_user_data, "__HOSTNAME__", each.value.hostname)
 
   tags = merge(
     var.default_tags,
