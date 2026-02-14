@@ -1172,6 +1172,7 @@ LISTEN 0      511             [::]:80            [::]:*    users:(("nginx",pid=1
 ```
 
 nginx를 확인하면 아래처럼 나온다.
+
 ![alt text](image/nginx-root.png)
 
 ## setup-offline.sh 실행 (offline repo 설정, pypi mirror 전역 설정)
